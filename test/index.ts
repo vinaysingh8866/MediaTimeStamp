@@ -1,19 +1,25 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("Greeter", function () {
-  it("Should return the new greeting once it's changed", async function () {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    await greeter.deployed();
+describe("TimeStamp", function () {
+  it("Check Insertion", async function () {
+    const TimeStamp = await ethers.getContractFactory("TimeStampHash");
+    const timestamp = await TimeStamp.deploy();
+    await timestamp.deployed();
 
-    expect(await greeter.greet()).to.equal("Hello, world!");
-
-    const setGreetingTx = await greeter.setGreeting("Hola, mundo!");
+    const insertTimeStamp = await timestamp.insertTimeStamp(
+      "0x46696c6531446174610000000000000000000000000000000000000000000000",
+      "0x46696c6531000000000000000000000000000000000000000000000000000000"
+    );
 
     // wait until the transaction is mined
-    await setGreetingTx.wait();
-
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+    await insertTimeStamp.wait();
+    expect(
+      await timestamp.getTimeStamp(
+        "0x46696c6531000000000000000000000000000000000000000000000000000000"
+      )
+    ).to.equal(
+      "0x46696c6531446174610000000000000000000000000000000000000000000000"
+    );
   });
 });
