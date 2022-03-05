@@ -30,6 +30,7 @@ pragma solidity ^0.8.0;
     * 
     */
     function insertTimeStamp(bytes32 stampHash, bytes32 nameHash) public {
+        require(fileOwners[stampHash] == address(0), "file already exists!");
         uint256 total = data[msg.sender].totalStamps;
         fileOwners[stampHash] = msg.sender;
         data[msg.sender].totalStamps = total + 1;
@@ -54,6 +55,9 @@ pragma solidity ^0.8.0;
     */
     function insertMultiple(bytes32[] memory stampHash,bytes32[] memory nameHash) public {
         require(stampHash.length == nameHash.length, "Array Length Mis-match");
+        for(uint i=0; i<stampHash.length; i++){
+            require(fileOwners[stampHash[i]] == address(0), "file already exists!");
+        }
         uint256 total = data[msg.sender].totalStamps;
         for(uint i =0; i<stampHash.length; i++){
             fileOwners[stampHash[i]] = msg.sender;
@@ -77,6 +81,7 @@ pragma solidity ^0.8.0;
     * @param gps uint value of gps coordinates
     */    
     function insertImageMeta(string memory gps, bytes32 stampHash) public {
+        require(fileOwners[stampHash] == address(0), "file already exists!");
         fileOwners[stampHash] = msg.sender;
         imageMetaData[stampHash].time = block.timestamp;
         imageMetaData[stampHash].gps = gps;
