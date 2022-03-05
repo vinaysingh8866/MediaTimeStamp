@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 /**
+ * @author Shweta, Suyash, Tarandeep, Vinay
  * @title TimeStampHash
  * @dev 
  */
@@ -23,8 +24,9 @@ pragma solidity ^0.8.0;
     mapping(bytes32 => ImageMeta) public imageMetaData;
 
     /**
+    * This method is used to insert store hashed file data and hashed filename.
     * @param stampHash byte32 hash of the data
-    * @param nameHash byte32 hash of the namee of file 
+    * @param nameHash byte32 hashed filename
     * 
     */
     function insertTimeStamp(bytes32 stampHash, bytes32 nameHash) public {
@@ -35,7 +37,8 @@ pragma solidity ^0.8.0;
     }
 
     /**
-    * @param nameHash byte32 hash of the namee of file 
+    * Returns the hashed file data of the called for the passed hashed filename.
+    * @param nameHash byte32 hashed file name.
     * @return stampHash hash of file data
     */
 
@@ -44,8 +47,9 @@ pragma solidity ^0.8.0;
     }
 
     /**
-    * @param stampHash byte32 hash of the data
-    * @param nameHash byte32 hash of the namee of file 
+    * This method is used to store multiple hashed data passed in the function
+    * @param stampHash byte32 array of hashed data
+    * @param nameHash byte32 array of hashed file's name.
     * 
     */
     function insertMultiple(bytes32[] memory stampHash,bytes32[] memory nameHash) public {
@@ -59,15 +63,17 @@ pragma solidity ^0.8.0;
     }
 
     /**
+    * Returns the owner's address of the hashed data.
+    *
     * @param stampHash byte32 hash of data 
-    * @return owner of file hash
+    * @return owner of hashed data
      */
     function getOwner(bytes32 stampHash) public view returns(address owner){
         return fileOwners[stampHash];
     }
 
     /**
-    * 
+    * This method is used to gather the hashed data of an image along with the location and time.
     * @param gps uint value of gps coordinates
     */    
     function insertImageMeta(string memory gps, bytes32 stampHash) public {
@@ -77,6 +83,8 @@ pragma solidity ^0.8.0;
     }
 
     /**
+    * Returns the location and time of the uploaded image.
+    *
     * @param stampHash hash of data  
     * @return imageMeta time and location of photo
     */
