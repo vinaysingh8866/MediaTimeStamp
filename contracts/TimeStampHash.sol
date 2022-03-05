@@ -76,6 +76,10 @@ pragma solidity ^0.8.0;
         imageMetaData[stampHash].gps = gps;
     }
 
+    /**
+    * @param stampHash hash of data  
+    * @return imageMeta time and location of photo
+    */
     function getImageMeta(bytes32 stampHash) public view returns(ImageMeta memory imageMeta){
         return imageMetaData[stampHash];
     }
