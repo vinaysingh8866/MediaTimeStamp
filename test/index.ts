@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
@@ -5,7 +6,7 @@ import { TimeStampHash } from "../typechain";
 
 describe("TimeStamp", function () {
   let timestamp: TimeStampHash;
-  let accounts: SignerWithAddress[]; 
+  let accounts: SignerWithAddress[];
   beforeEach(async function () {
     const TimeStamp = await ethers.getContractFactory("TimeStampHash");
     timestamp = await TimeStamp.deploy();
@@ -28,6 +29,13 @@ describe("TimeStamp", function () {
     ).to.equal(
       "0x46696c6531446174610000000000000000000000000000000000000000000000"
     );
+
+    expect(
+      timestamp.insertTimeStamp(
+        "0x46696c6531446174610000000000000000000000000000000000000000000000",
+        "0x46696c6531000000000000000000000000000000000000000000000000000000"
+      )
+    ).to.be.reverted;
   });
 
   it("Check Multiple Insertion", async function () {
@@ -60,7 +68,6 @@ describe("TimeStamp", function () {
       "0x46696c6531446174610000000000000000000000000000000000000000000000"
     );
 
-    // eslint-disable-next-line no-unused-expressions
     expect(
       timestamp.insertMultiple(
         [
@@ -68,6 +75,19 @@ describe("TimeStamp", function () {
           "0x46696c6531446174610000000000000000000000000000000000000000000000",
         ],
         ["0x46696c6511000000000000000000000000000000000000000000000000000000"]
+      )
+    ).to.be.reverted;
+
+    expect(
+      timestamp.insertMultiple(
+        [
+          "0x46696c6531406174910000000000000000000000000000000000000000000000",
+          "0x46696c6531446174610000000000000000000000000000000000000000000000",
+        ],
+        [
+          "0x46696c6511000000000000000000000000000000000000000000000000000000",
+          "0x46696c6530000000000000000000000000000000000000000000000000000000",
+        ]
       )
     ).to.be.reverted;
   });
@@ -90,7 +110,14 @@ describe("TimeStamp", function () {
     expect(val[0].toNumber()).to.equal(timestampBefore);
     expect(val[1]).to.equal("90.0000°N,135.0000°W");
     // console.log(val[1]);
+    expect(
+      timestamp.insertImageMeta(
+        "90.0000°N,135.0000°W",
+        "0x46696c6531000000000000000000000000000000000000000000000000000000"
+      )
+    ).to.be.reverted;
   });
+
   it("Check Owner", async function () {
     const insertTimeStamp = await timestamp.insertTimeStamp(
       "0x46696d6531446174610000000000000000000000000000000000000000000000",
