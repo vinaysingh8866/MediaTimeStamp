@@ -36,8 +36,9 @@ pragma solidity ^0.8.0;
 
     /**
     * @param nameHash byte32 hash of the namee of file 
-    * 
+    * @return stampHash hash of file data
     */
+    
     function getTimeStamp(bytes32 nameHash) public view returns(bytes32 stampHash){
         return data[msg.sender].stamps[nameHash]; 
     }
@@ -59,6 +60,7 @@ pragma solidity ^0.8.0;
 
     /**
     * @param stampHash byte32 hash of data 
+    * @return owner of file hash
      */
     function getOwner(bytes32 stampHash) public view returns(address owner){
         return fileOwners[stampHash];
@@ -72,5 +74,9 @@ pragma solidity ^0.8.0;
         fileOwners[stampHash] = msg.sender;
         imageMetaData[stampHash].time = time;
         imageMetaData[stampHash].gps = gps;
+    }
+
+    function getImageMeta(bytes32 stampHash) public view returns(ImageMeta memory imageMeta){
+        return imageMetaData[stampHash];
     }
 }
