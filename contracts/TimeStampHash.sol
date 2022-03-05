@@ -38,7 +38,7 @@ pragma solidity ^0.8.0;
     * @param nameHash byte32 hash of the namee of file 
     * @return stampHash hash of file data
     */
-    
+
     function getTimeStamp(bytes32 nameHash) public view returns(bytes32 stampHash){
         return data[msg.sender].stamps[nameHash]; 
     }
@@ -67,12 +67,12 @@ pragma solidity ^0.8.0;
     }
 
     /**
-    * @param time unix time as uint
+    * 
     * @param gps uint value of gps coordinates
     */    
-    function insertImageMeta(uint time,string memory gps, bytes32 stampHash) public {
+    function insertImageMeta(string memory gps, bytes32 stampHash) public {
         fileOwners[stampHash] = msg.sender;
-        imageMetaData[stampHash].time = time;
+        imageMetaData[stampHash].time = block.timestamp;
         imageMetaData[stampHash].gps = gps;
     }
 
