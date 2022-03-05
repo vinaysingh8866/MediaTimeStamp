@@ -50,7 +50,7 @@ pragma solidity ^0.8.0;
     function insertMultiple(bytes32[] memory stampHash,bytes32[] memory nameHash) public {
         require(stampHash.length == nameHash.length, "Array Length Mis-match");
         uint256 total = data[msg.sender].totalStamps;
-        for(uint i =0; i<=stampHash.length; i++){
+        for(uint i =0; i<stampHash.length; i++){
             fileOwners[stampHash[i]] = msg.sender;
             data[msg.sender].totalStamps = total + 1;
             data[msg.sender].stamps[nameHash[i]] = stampHash[i];
