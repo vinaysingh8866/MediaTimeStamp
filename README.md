@@ -49,6 +49,6 @@ The config just supports ropsten and rinkeby. If you need more networks add them
 
 - [@vinaysingh](https://github.com/vinaysingh8866)
 - [@tarandeep](https://github.com/Tarandeep100)
-- [@suyash]()
+- [@suyash](https://github.com/Shuunya-web)
 - [@shweta]()
 
