@@ -19,7 +19,7 @@ async function main() {
 
   await timestamp.deployed();
 
-  console.log("Greeter deployed to:", timestamp.address);
+  console.log("Timestamp contract deployed to:", timestamp.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
