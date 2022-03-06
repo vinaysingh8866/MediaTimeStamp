@@ -27,7 +27,7 @@ pragma solidity ^0.8.0;
     * @notice This method is used to insert store hashed file data and hashed filename.
     * @param stampHash byte32 hash of the data
     * @param nameHash byte32 hashed filename
-    * 
+    *  
     */
     function insertTimeStamp(bytes32 stampHash, bytes32 nameHash) public {
         require(fileOwners[stampHash] == address(0), "file already exists!");
@@ -56,7 +56,7 @@ pragma solidity ^0.8.0;
     function insertMultiple(bytes32[] memory stampHash,bytes32[] memory nameHash) public {
         require(stampHash.length == nameHash.length, "Array Length Mis-match");
         for(uint i=0; i<stampHash.length; i++){
-            require(fileOwners[stampHash[i]] == address(0), "file already exists!");
+            require(fileOwners[stampHash[i]] == address(0), "File owner already exists");
         }
         uint256 total = data[msg.sender].totalStamps;
         for(uint i =0; i<stampHash.length; i++){
@@ -80,7 +80,7 @@ pragma solidity ^0.8.0;
     * @param gps uint value of gps coordinates
     */    
     function insertImageMeta(string memory gps, bytes32 stampHash) public {
-        require(fileOwners[stampHash] == address(0), "file already exists!");
+        require(fileOwners[stampHash] == address(0), "File owner already exists");
         fileOwners[stampHash] = msg.sender;
         imageMetaData[stampHash].time = block.timestamp;
         imageMetaData[stampHash].gps = gps;
